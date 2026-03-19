@@ -1,0 +1,33 @@
+@startuml
+title CinemaAbyss - Architecture During Migration
+
+actor User
+
+component "API Gateway" as Gateway
+
+component "Monolith Service" as Monolith
+component "Movies Service" as Movies
+component "Events Service" as Events
+
+database "PostgreSQL (shared)" as DB
+queue "Kafka" as Kafka
+
+User --> Gateway
+
+Gateway --> Monolith : /api/users\n/api/payments\n/api/subscriptions
+Gateway --> Movies : /api/movies
+Gateway --> Events : /api/events
+
+Monolith --> DB
+Movies --> DB
+
+Monolith --> Kafka
+Movies --> Kafka
+Events --> Kafka
+
+note right of Gateway
+Gradual traffic migration
+using MOVIES_MIGRATION_PERCENT
+end note
+
+@enduml
