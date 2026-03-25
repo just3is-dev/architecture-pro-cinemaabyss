@@ -1,0 +1,34 @@
+@startuml
+title CinemaAbyss - Target Microservices Architecture
+
+actor User
+
+component "API Gateway" as Gateway
+
+component "Users Service\n(Auth + Profiles)"
+component "Movies Service"
+component "Billing Service"
+component "Events Service"
+
+database "Users DB"
+database "Movies DB"
+database "Billing DB"
+
+queue "Kafka"
+
+User --> Gateway
+
+Gateway --> "Users Service\n(Auth + Profiles)"
+Gateway --> "Movies Service"
+Gateway --> "Billing Service"
+Gateway --> "Events Service"
+
+"Users Service\n(Auth + Profiles)" --> "Users DB"
+"Movies Service" --> "Movies DB"
+"Billing Service" --> "Billing DB"
+
+"Users Service\n(Auth + Profiles)" --> Kafka
+"Movies Service" --> Kafka
+"Billing Service" --> Kafka
+
+@enduml

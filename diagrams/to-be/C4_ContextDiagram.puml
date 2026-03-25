@@ -1,0 +1,15 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+title CinemaAbyss - System Context
+
+Person(user, "User", "Watches movies on the platform")
+
+System(cinema, "CinemaAbyss Platform", "Movie streaming platform")
+
+System_Ext(payment, "Payment Provider", "External payment processing")
+
+Rel(user, cinema, "Uses")
+Rel(cinema, payment, "Processes payments")
+
+@enduml
